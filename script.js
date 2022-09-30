@@ -15,12 +15,24 @@ let threePM = $('#15');
 let fourPM = $('#16');
 let fivePM = $('#17');
 
+addEventListener('load', (event) => {
+  let currentTime = moment();
+  let storedTask = JSON.parse(localStorage.getItem("stored-task"))
+  content.textContent = storedTask;
+  // if ()
+  // content.addClass("bg-danger")
+  // content.addClass("bg-success")
+
+});
+
 
 function contentSubmit(event) {
   event.preventDefault();
   let dailyTask = $('input[name="content"]').val();
   content.append('<li>' + dailyTask + '</li>');
   $('input[name="content"]').val('');
+  localStorage.setItem("stored-task", JSON.stringify(dailyTask));
 }
+
 
 scheduleBox.on('submit', contentSubmit);
