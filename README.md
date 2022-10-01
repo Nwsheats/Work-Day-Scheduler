@@ -19,6 +19,7 @@ SO THAT I can manage my time effectively
 
 ## Deloyed URL
 
+https://nwsheats.github.io/Work-Day-Scheduler/
 
 ## URL of GitHub Repository
 
