@@ -1,37 +1,38 @@
-console.log()
-
-let dateToday = moment();
+const dateToday = moment();
 $("#currentDay").text(dateToday.format("MMM Do, YYYY"));
 
-let scheduleBox = $('#schedule');
-let content = $('#content');
-let nineAM = $('#9');
-let tenAM = $('#10');
-let elevenAM = $('#11');
-let noon = $('#12');
-let onePM = $('#13');
-let twoPM = $('#14');
-let threePM = $('#15');
-let fourPM = $('#16');
-let fivePM = $('#17');
+const timeBlock = $('.row');
 
-addEventListener('load', (event) => {
-  let currentTime = moment();
-  let storedTask = JSON.parse(localStorage.getItem("stored-task"))
-  content.textContent = storedTask;
-  // if ()
-  // content.addClass("bg-danger")
-  // content.addClass("bg-success")
+const currentHour = moment().hours()
 
+const inputTasks = JSON.parse(localStorage.getItem("stored-tasks")) || ['', '', '', '', '', '', '', '', ''];
+
+timeBlock.each(function (index, element) {
+  console.log(index, element.id)
+  let actualNum = parseInt(element.id)
+  let content = element.querySelector(".col-9")
+  if (currentHour > actualNum) {
+    content.classList.add("past");
+  } else if (currentHour < actualNum) {
+    content.classList.add("future");
+  } else {
+    content.classList.add("present");
+  }
+  element.addEventListener('submit', contentSubmit)
+  content.value = inputTasks[index];
 });
+
 
 
 function contentSubmit(event) {
   event.preventDefault();
-  let dailyTask = $('input[name="content"]').val();
-  content.append('<li>' + dailyTask + '</li>');
-  $('input[name="content"]').val('');
-  localStorage.setItem("stored-task", JSON.stringify(dailyTask));
+  const element = event.target
+  console.log(event.target)
+  const index = parseInt(element.id) - 9;
+  const dailyTask = element.querySelector(".col-9").value
+  inputTasks[index] = dailyTask;
+  console.log(dailyTask);
+  localStorage.setItem("stored-tasks", JSON.stringify(inputTasks));
 }
 
 
