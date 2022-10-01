@@ -9,8 +9,8 @@ const inputTasks = JSON.parse(localStorage.getItem("stored-tasks")) || ['', '', 
 
 timeBlock.each(function (index, element) {
   console.log(index, element.id)
-  let actualNum = parseInt(element.id)
-  let content = element.querySelector(".col-9")
+  const actualNum = parseInt(element.id)
+  const content = element.querySelector(".col-9")
   if (currentHour > actualNum) {
     content.classList.add("past");
   } else if (currentHour < actualNum) {
@@ -23,17 +23,11 @@ timeBlock.each(function (index, element) {
 });
 
 
-
 function contentSubmit(event) {
   event.preventDefault();
   const element = event.target
-  console.log(event.target)
   const index = parseInt(element.id) - 9;
   const dailyTask = element.querySelector(".col-9").value
   inputTasks[index] = dailyTask;
-  console.log(dailyTask);
   localStorage.setItem("stored-tasks", JSON.stringify(inputTasks));
 }
-
-
-scheduleBox.on('submit', contentSubmit);
